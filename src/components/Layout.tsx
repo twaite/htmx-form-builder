@@ -1,5 +1,7 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
+import Header from "./Header";
+
 export default function Layout(
   props: Html.PropsWithChildren<{ title?: string }>
 ) {
@@ -14,9 +16,14 @@ export default function Layout(
             integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX"
             crossorigin="anonymous"
           ></script>
+          <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+          <script src="public/darkmode.js" />
           <link rel="stylesheet" type="text/css" href="public/styles.css" />
         </head>
-        <body>{props.children}</body>
+        <body class="dark:bg-slate-700 dark:text-emerald-50">
+          <Header />
+          <main class="p-5">{props.children}</main>
+        </body>
       </html>
     </>
   );

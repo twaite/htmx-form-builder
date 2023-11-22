@@ -2,12 +2,11 @@ import { Elysia } from "elysia";
 import { html } from "@elysiajs/html";
 import { tailwind } from "elysia-tailwind"; // 1. Import
 import { autoroutes } from "elysia-autoroutes";
-
-import Test from "./test";
-import Layout from "components/Layout";
+import { staticPlugin } from "@elysiajs/static";
 
 const app = new Elysia()
   .use(html())
+  .use(staticPlugin())
   .use(
     autoroutes({
       routesDir: "./routes",
@@ -27,47 +26,6 @@ const app = new Elysia()
       },
     })
   )
-  .get("/", () => (
-    <Layout title="Hello World">
-      <div hx-target="this" hx-swap="outerHTML" class="p-3 bg-blue-300">
-        <div>
-          <label>First Name</label>: Joe
-        </div>
-        <div>
-          <label>Last Name</label>: Blow
-        </div>
-        <div>
-          <label>Email</label>: joe@blow.com
-        </div>
-        <button hx-get="/contact/1/edit" class="btn btn-primary">
-          Click To Edit
-        </button>
-        <h3>Test Component:</h3>
-        <Test />
-      </div>
-    </Layout>
-  ))
-  .get("/test/", Test)
-  .get("/contact/1/edit", () => (
-    <form hx-put="/contact/1" hx-target="this" hx-swap="outerHTML">
-      <div>
-        <label>First Name</label>
-        <input type="text" name="firstName" value="Joe" />
-      </div>
-      <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" name="lastName" value="Blow" />
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" name="email" value="joe@blow.com" />
-      </div>
-      <button class="btn">Submit</button>
-      <button class="btn" hx-get="/contact/1">
-        Cancel
-      </button>
-    </form>
-  ))
   .listen(3000);
 
 export type ElysiaApp = typeof app;
