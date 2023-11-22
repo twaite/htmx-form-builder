@@ -1,13 +1,23 @@
-# Elysia with Bun runtime
+# HTMX Dynamic Form Builder
+
+This project implements a dynamic form builder. This is built with the following technologies:
+
+- [Bun](https://bun.sh/)
+- [Elysia](https://elysiajs.com/)
+- [HTMX](https://htmx.org/)
+- [JSX](https://react.dev/learn/writing-markup-with-jsx)
+- [Tailwind](https://tailwindcss.com/)
 
 ## Getting Started
-To get started with this template, simply paste this command into your terminal:
+
 ```bash
-bun create elysia ./elysia-example
+bun install
 ```
 
 ## Development
+
 To start the development server run:
+
 ```bash
 bun run dev
 ```
