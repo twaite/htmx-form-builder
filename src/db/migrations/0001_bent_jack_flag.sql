@@ -1,0 +1,1 @@
+ALTER TABLE "inputs" ADD COLUMN "placeholder" varchar NOT NULL;

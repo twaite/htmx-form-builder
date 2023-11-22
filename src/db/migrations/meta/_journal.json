@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1700691899732,
+      "tag": "0000_daffy_spacker_dave",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1700692106020,
+      "tag": "0001_bent_jack_flag",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1700692497303,
+      "tag": "0002_flimsy_captain_flint",
+      "breakpoints": true
+    }
+  ]
+}
