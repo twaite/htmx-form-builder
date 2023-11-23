@@ -23,10 +23,11 @@ async function FormList() {
           </a>
         ))}
         <div class="w-full flex items-center justify-center">
-          <div
+          <button
             class="rounded-full w-16 shadow-lg p-4 flex items-center justify-center bg-indigo-500 hover:shadow-xl hover:bg-indigo-600 cursor-pointer dark:bg-emerald-500"
-            hx-swap="outerHTML"
             hx-get="/form/create"
+            hx-target="#modal-container"
+            hx-swap="innerHTML"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,34 +37,12 @@ async function FormList() {
             >
               <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
-          </div>
+          </button>
         </div>
       </div>
+      <div id="modal-container" />
     </Html.Fragment>
   );
 }
 
 export default (app: ElysiaApp) => app.get("/", () => <FormList />);
-// .post("/", async ({ body }) => {
-//   const parsed = FormSchema.safeParse(body);
-
-//   if (parsed.success) {
-//     await formRepo.create(parsed.data);
-
-//     return <FormList />;
-//   }
-
-//   console.error("Something went wrong parsing the form data.");
-
-//   const data = body as unknown as Partial<Form>;
-//   const errors = parsed.error.flatten().fieldErrors;
-
-//   return (
-//     <FormList
-//       name={data.name}
-//       description={data.description}
-//       nameError={errors.name?.[0]}
-//       descriptionError={errors.description?.[0]}
-//     />
-//   );
-// });

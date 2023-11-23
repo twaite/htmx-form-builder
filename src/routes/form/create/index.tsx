@@ -21,9 +21,11 @@ function Form(props: FormProps) {
       hx-post="/form/create"
       hx-swap="outerHTML"
     >
-      <a
+      <div
         class="w-full h-full absolute opacity-60 bg-slate-900 backdrop-blur-md"
-        href="/"
+        hx-get="/forms"
+        hx-target="main"
+        hx-swap="innerHTML"
       />
       <div class="flex flex-col w-md mx-auto gap-1 z-10 bg-gray-50 dark:bg-slate-600 rounded-lg shadow-lg p-5 flex-grow max-w-md">
         <Input

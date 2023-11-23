@@ -4,7 +4,7 @@ import { tailwind } from "elysia-tailwind"; // 1. Import
 import { autoroutes } from "elysia-autoroutes";
 import { staticPlugin } from "@elysiajs/static";
 
-const app = new Elysia()
+export const app = new Elysia()
   .use(html())
   .use(staticPlugin())
   .use(
