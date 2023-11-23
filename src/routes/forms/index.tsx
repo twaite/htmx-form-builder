@@ -84,10 +84,10 @@ export default (app: ElysiaApp) =>
         return <FormList />;
       }
 
+      console.error("Something went wrong parsing the form data.");
+
       const data = body as unknown as Partial<Form>;
       const errors = parsed.error.flatten().fieldErrors;
-
-      console.error(errors);
 
       return (
         <FormList
