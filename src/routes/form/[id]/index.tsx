@@ -3,6 +3,7 @@
 import type { ElysiaApp } from "app";
 import { NotFoundError } from "app/errors";
 import Button from "components/Button";
+import FormPreview from "components/FormPreview";
 import Layout from "components/Layout";
 import { t } from "elysia";
 import { formRepo } from "repo";
@@ -15,20 +16,25 @@ export default (app: ElysiaApp) =>
 
         return (
           <Layout>
-            <form id="view-form" class="flex flex-col gap-3">
-              <div>
-                <h1 class="text-3xl">{form.name}</h1>
+            <div class="grid grid-cols-3 gap-4">
+              <form id="view-form" class="flex flex-col gap-3 col-span-2">
+                <div class="flex items-center">
+                  <h1 class="text-3xl flex-grow">{form.name}</h1>
+                  <Button
+                    hx-get={`/form/${id}/edit`}
+                    hx-target="closest #view-form"
+                    hx-swap="innerHTML"
+                    variant="secondary"
+                  >
+                    Edit Details
+                  </Button>
+                </div>
                 <h3 class="text-lg">{form.description}</h3>
+              </form>
+              <div class="rounded-lg bg-white p-4 dark:bg-slate-500">
+                <FormPreview form={form} />
               </div>
-              <Button
-                hx-get={`/form/${id}/edit`}
-                hx-target="closest #view-form"
-                hx-swap="innerHTML"
-                variant="secondary"
-              >
-                Edit
-              </Button>
-            </form>
+            </div>
           </Layout>
         );
       } catch (e) {

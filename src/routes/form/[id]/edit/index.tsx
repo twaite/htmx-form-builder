@@ -10,9 +10,13 @@ export default (app: ElysiaApp) =>
     const form = await formRepo.findByIdThrows(id);
     return (
       <Html.Fragment>
-        <Input value={form.name} name="name" />
+        <div class="flex gap-2">
+          <div class="flex-grow">
+            <Input value={form.name} name="name" inputClasses="w-full" />
+          </div>
+          <Button hx-post={`/form/${id}/`}>Save Details</Button>
+        </div>
         <Input value={form.description} name="description" type="textarea" />
-        <Button hx-post={`/form/${id}/`}>Save</Button>
       </Html.Fragment>
     );
   });

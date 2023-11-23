@@ -43,7 +43,7 @@ function Form(props: FormProps) {
           error={props.descriptionError}
           required
         />
-        <Button>Add Form</Button>
+        <Button class="mt-2">Add Form</Button>
       </div>
     </form>
   );
