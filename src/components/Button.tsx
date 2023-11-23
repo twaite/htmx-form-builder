@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Html } from "@elysiajs/html";
 
 type Props = {
   type?: "button" | "submit" | "reset";
@@ -8,6 +9,7 @@ type Props = {
 export default function Button(props: Html.PropsWithChildren<Props>) {
   return (
     <button
+      data-testid="button"
       // Forward other props so htmx works
       {...props}
       class={clsx("rounded py-2 mt-2", {

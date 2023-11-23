@@ -2,7 +2,7 @@
   "name": "htmx-fun",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "test",
     "dev": "bun run --watch src/index.tsx",
     "migrate": "bun src/db/migrate.ts",
     "migrate:make": "bun drizzle-kit generate:pg"
@@ -22,6 +22,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@happy-dom/global-registrator": "^12.10.3",
     "@types/lodash-es": "^4.17.12",
     "@types/uuid": "^9.0.7",
     "bun-types": "latest",

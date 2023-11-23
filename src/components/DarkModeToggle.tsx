@@ -1,7 +1,10 @@
+import { Html } from "@elysiajs/html";
+
 export default function DarkModeToggle() {
   return (
     <Html.Fragment>
       <div
+        data-testid="dark-mode-toggle"
         class="rounded-full dark:bg-slate-900 bg-indigo-100 p-2 w-10 flex justify-center cursor-pointer"
         onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', localStorage.getItem('theme') === 'light' ? 'dark' : 'light');"
       >

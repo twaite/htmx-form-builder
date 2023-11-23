@@ -1,0 +1,5 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render a button 1`] = `"<button data-testid="button" type="button" class="rounded py-2 mt-2 text-white dark:text-slate-800 bg-indigo-600 dark:bg-emerald-500 "></button>"`;
+
+exports[`Button should render a submit button 1`] = `"<button data-testid="button" type="submit" class="rounded py-2 mt-2 text-white dark:text-slate-800 bg-indigo-600 dark:bg-emerald-500 "></button>"`;
