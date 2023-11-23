@@ -1,11 +1,13 @@
-import db, { form } from "db";
+import db, { form as formTable } from "db";
 import { v4 as genUUID } from "uuid";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { first } from "lodash-es";
+import { first, isEmpty } from "lodash-es";
 import { eq } from "drizzle-orm";
+import { Form } from "app/models";
+import { NotFoundError } from "app/errors";
 
-export const insertSchema = createInsertSchema(form, {
+export const insertSchema = createInsertSchema(formTable, {
   id: z.string().uuid().optional(),
   name: z.string().min(3).max(255),
   description: z.string().min(3).max(255),
@@ -13,8 +15,16 @@ export const insertSchema = createInsertSchema(form, {
 
 type InsertInput = z.infer<typeof insertSchema>;
 
-export function findMany() {
-  return db.query.form.findMany();
+function toModel(data: typeof formTable.$inferSelect): Form {
+  return {
+    id: data.id,
+    name: data.name,
+    description: data.description,
+  };
+}
+
+export async function findMany() {
+  return (await db.query.form.findMany()).map(toModel);
 }
 
 export async function create(input: InsertInput) {
@@ -22,7 +32,7 @@ export async function create(input: InsertInput) {
 
   try {
     const results = await db
-      .insert(form)
+      .insert(formTable)
       .values({
         id: genUUID(),
         ...parsedInput,
@@ -35,14 +45,20 @@ export async function create(input: InsertInput) {
       throw new Error("Failed to create form");
     }
 
-    return data;
+    return toModel(data);
   } catch (e) {
     throw e;
   }
 }
 
-export function findById(id: string) {
-  return db.query.form.findFirst({
-    where: eq(form.id, id),
+export async function findByIdThrows(id: string) {
+  const data = await db.query.form.findFirst({
+    where: eq(formTable.id, id),
   });
+
+  if (data) {
+    return toModel(data);
+  }
+
+  throw new NotFoundError(`Form with id ${id} not found`);
 }
