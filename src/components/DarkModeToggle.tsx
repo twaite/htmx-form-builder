@@ -2,7 +2,7 @@ export default function DarkModeToggle() {
   return (
     <Html.Fragment>
       <div
-        class="rounded-full dark:bg-inherit bg-indigo-100 p-2 w-10 flex justify-center cursor-pointer"
+        class="rounded-full dark:bg-slate-900 bg-indigo-100 p-2 w-10 flex justify-center cursor-pointer"
         onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', localStorage.getItem('theme') === 'light' ? 'dark' : 'light');"
       >
         <svg

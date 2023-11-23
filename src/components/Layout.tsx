@@ -19,6 +19,10 @@ export default function Layout(
           <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
           <script src="/public/darkmode.js" />
           <link rel="stylesheet" type="text/css" href="/public/styles.css" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+          ></meta>
         </head>
         <body class="dark:bg-slate-700 dark:text-emerald-50 bg-gray-50">
           <Header />
