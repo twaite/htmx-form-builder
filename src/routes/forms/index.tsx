@@ -6,27 +6,13 @@ import { clsx } from "clsx";
 import type { ElysiaApp } from "app";
 import { formRepo } from "repo";
 
-const FormSchema = z.object({
-  name: z.string().min(3).max(255),
-  description: z.string().min(3).max(255),
-});
-
-type Form = z.infer<typeof FormSchema>;
-
-type FormListProps = {
-  name?: string;
-  description?: string;
-  nameError?: string;
-  descriptionError?: string;
-};
-
-async function FormList(props: FormListProps) {
+async function FormList() {
   const forms = await formRepo.findMany();
 
   return (
-    <form hx-post="/forms" hx-push-url="true">
-      <h1 class="text-3xl font-bold">Select a form to begin:</h1>
-      <div class="grid grid-cols-3 gap-3 mb-5">
+    <Html.Fragment>
+      <h1 class="text-xl font-bold pb-3">Select a form to begin:</h1>
+      <div class="grid lg:grid-cols-3 gap-3 mb-5">
         {forms.map((form) => (
           <a
             class="flex flex-col bg-gray-50 dark:bg-slate-500 shadow-lg p-3 rounded w-full items-center justify-center h-20 cursor-pointer hover:shadow-lg dark:hover:bg-slate-400 hover:bg-blue-100"
@@ -36,71 +22,48 @@ async function FormList(props: FormListProps) {
             <p>{form.description}</p>
           </a>
         ))}
+        <div class="w-full flex items-center justify-center">
+          <div
+            class="rounded-full w-16 shadow-lg p-4 flex items-center justify-center bg-indigo-500 hover:shadow-xl hover:bg-indigo-600 cursor-pointer dark:bg-emerald-500"
+            hx-swap="outerHTML"
+            hx-get="/form/create"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="2rem"
+              viewBox="0 0 448 512"
+              class="fill-white dark:fill-slate-700"
+            >
+              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+            </svg>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col max-w-md mx-auto gap-1">
-        {/* TODO: input component */}
-        <label for="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          autofocus={props.nameError}
-          class={clsx(
-            "text-black border-2 dark:focus:border-emerald-500 p-2 rounded outline-none dark:bg-slate-200",
-            {
-              "border-red-400 focus:border-red-600": props.nameError,
-            }
-          )}
-          required
-          value={props.name}
-        />
-        <p class="text-red-400">{props.nameError}</p>
-        <label for="description">Description</label>
-        <textarea
-          name="description"
-          autofocus={props.descriptionError}
-          class={clsx(
-            "text-black border-2 dark:focus:border-emerald-500 p-2 rounded outline-none dark:bg-slate-200",
-            {
-              "border-red-400 focus:border-red-600": props.descriptionError,
-            }
-          )}
-          required
-        >
-          {props.description ?? "N/A"}
-        </textarea>
-        <p class="text-red-400">{props.descriptionError}</p>
-        {/* TODO: button component */}
-        <button class="rounded text-white dark:text-slate-800 bg-indigo-600 dark:bg-emerald-500 py-2 mt-2">
-          Add Form
-        </button>
-      </div>
-    </form>
+    </Html.Fragment>
   );
 }
 
-export default (app: ElysiaApp) =>
-  app
-    .get("/", () => <FormList />)
-    .post("/", async ({ body }) => {
-      const parsed = FormSchema.safeParse(body);
+export default (app: ElysiaApp) => app.get("/", () => <FormList />);
+// .post("/", async ({ body }) => {
+//   const parsed = FormSchema.safeParse(body);
 
-      if (parsed.success) {
-        await formRepo.create(parsed.data);
+//   if (parsed.success) {
+//     await formRepo.create(parsed.data);
 
-        return <FormList />;
-      }
+//     return <FormList />;
+//   }
 
-      console.error("Something went wrong parsing the form data.");
+//   console.error("Something went wrong parsing the form data.");
 
-      const data = body as unknown as Partial<Form>;
-      const errors = parsed.error.flatten().fieldErrors;
+//   const data = body as unknown as Partial<Form>;
+//   const errors = parsed.error.flatten().fieldErrors;
 
-      return (
-        <FormList
-          name={data.name}
-          description={data.description}
-          nameError={errors.name?.[0]}
-          descriptionError={errors.description?.[0]}
-        />
-      );
-    });
+//   return (
+//     <FormList
+//       name={data.name}
+//       description={data.description}
+//       nameError={errors.name?.[0]}
+//       descriptionError={errors.description?.[0]}
+//     />
+//   );
+// });

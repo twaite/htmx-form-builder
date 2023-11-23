@@ -17,10 +17,10 @@ export default function Layout(
             crossorigin="anonymous"
           ></script>
           <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-          <script src="public/darkmode.js" />
-          <link rel="stylesheet" type="text/css" href="public/styles.css" />
+          <script src="/public/darkmode.js" />
+          <link rel="stylesheet" type="text/css" href="/public/styles.css" />
         </head>
-        <body class="dark:bg-slate-700 dark:text-emerald-50">
+        <body class="dark:bg-slate-700 dark:text-emerald-50 bg-gray-50">
           <Header />
           <main class="p-5">{props.children}</main>
         </body>
