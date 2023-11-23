@@ -6,6 +6,6 @@ import Layout from "components/Layout";
 export default (app: ElysiaApp) =>
   app.get("/", () => (
     <Layout title="URL Builder">
-      <h1 class="text-3xl font-bold">"Hello World"</h1>
+      <div hx-get="/forms" hx-trigger="load" hx-push-history="true" />
     </Layout>
   ));

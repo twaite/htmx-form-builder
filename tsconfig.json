@@ -106,6 +106,8 @@
     "paths": {
       "components/*": ["./src/components/*"],
       "app": ["./src/index.tsx"],
+      "db": ["./src/db/index.ts"],
+      "repo": ["./src/repo/index.ts"],
     },
     "lib": ["dom", "esnext"]
   }

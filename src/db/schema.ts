@@ -9,4 +9,5 @@ export const input = pgTable("inputs", {
 export const form = pgTable("forms", {
   id: uuid("id").primaryKey(),
   name: varchar("name").notNull(),
+  description: varchar("description").notNull().default("N/A"),
 });
