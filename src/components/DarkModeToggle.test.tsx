@@ -1,7 +1,6 @@
-import { describe, test, expect, spyOn } from "bun:test";
+import { describe, test, expect } from "bun:test";
 import userEvent from "@testing-library/user-event";
 import DarkModeToggle from "./DarkModeToggle";
-import { getByTestId } from "@testing-library/dom";
 
 const user = userEvent.setup();
 
