@@ -22,3 +22,9 @@ export function create(input: InsertInput) {
     })
     .returning();
 }
+
+export function findById(id: string) {
+  return db.query.form.findOne({
+    where: { id },
+  });
+}
