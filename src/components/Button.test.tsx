@@ -1,4 +1,3 @@
-import { getByTestId } from '@testing-library/dom';
 import { describe, expect, test } from 'bun:test';
 import Button from './Button';
 
@@ -12,6 +11,6 @@ describe('Button', () => {
     document.body.innerHTML = button;
 
     expect(button).toMatchSnapshot();
-    expect(getByTestId(document.body, 'button').type).toEqual('submit');
+    expect(document.querySelector('button').type).toEqual('submit');
   });
 });

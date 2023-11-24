@@ -6,7 +6,8 @@
     "test": "test",
     "dev": "bun run --watch src/index.tsx",
     "migrate": "bun src/db/migrate.ts",
-    "migrate:make": "bun drizzle-kit generate:pg"
+    "migrate:make": "bun drizzle-kit generate:pg",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@elysiajs/html": "^0.7.3",
@@ -35,7 +36,8 @@
     "drizzle-kit": "^0.20.4",
     "jsdom": "^22.1.0",
     "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7"
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "husky": "^8.0.0"
   },
   "module": "src/index.js"
 }
