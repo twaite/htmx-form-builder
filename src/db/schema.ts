@@ -24,11 +24,11 @@ export const input = pgTable('inputs', {
   type: inputType('type').notNull().default('text'),
   formStepId: uuid('form_step_id')
     .notNull()
-    .references(() => formStep.id),
+    .references(() => step.id),
 });
 
 export const inputRelations = relations(input, ({ one }) => ({
-  formStep: one(formStep),
+  formStep: one(step),
 }));
 
 export const form = pgTable('forms', {
@@ -38,24 +38,24 @@ export const form = pgTable('forms', {
 });
 
 export const formRelations = relations(form, ({ many }) => ({
-  steps: many(formStep),
+  steps: many(step),
 }));
 
-export const formStep = pgTable(
-  'form_steps',
+export const step = pgTable(
+  'step',
   {
     ...timestampsAndID,
-    step: integer('step').notNull().default(1),
+    number: integer('step').notNull().default(1),
     formId: uuid('form_id')
       .notNull()
       .references(() => form.id),
   },
   (t) => ({
-    formStepUnique: unique().on(t.formId, t.step),
+    formStepUnique: unique().on(t.formId, t.number),
   }),
 );
 
-export const formStepRelations = relations(formStep, ({ one, many }) => ({
+export const formStepRelations = relations(step, ({ one, many }) => ({
   form: one(form),
   inputs: many(input),
 }));

@@ -7,7 +7,8 @@ import Input from 'components/Input';
 
 export default (app: ElysiaApp) =>
   app.get('/', async ({ params: { id } }: { params: { id: string } }) => {
-    const form = await FormRepository.get(id);
+    const form = await new FormRepository().get(id);
+
     return (
       <Html.Fragment>
         <div class="flex gap-2">

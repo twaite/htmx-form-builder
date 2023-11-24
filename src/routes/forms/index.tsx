@@ -4,7 +4,7 @@ import type { ElysiaApp } from 'app';
 import { FormRepository } from 'repo';
 
 async function FormList() {
-  const forms = await FormRepository.getAll();
+  const forms = await new FormRepository().getAll();
 
   return (
     <Html.Fragment>

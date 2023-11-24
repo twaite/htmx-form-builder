@@ -4,8 +4,9 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { IEditableRepository } from './types';
 import { eq } from 'drizzle-orm';
-import { NotFoundError } from 'elysia';
+import { NotFoundError } from 'app/errors';
 import { first } from 'lodash-es';
+import { StepRepository } from './StepRepository';
 
 export const insertFormSchema = createInsertSchema(formTable, {
   id: z.string().uuid().optional(),
@@ -19,11 +20,11 @@ export type InsertFormInput = z.infer<typeof insertFormSchema>;
 export type UpdateFormInput = z.infer<typeof updateFormSchema>;
 export type DBForm = z.infer<typeof selectFormSchema>;
 
-class FormRepository implements IEditableRepository<Form, DBForm> {
-  toModel(data: DBForm) {
-    return {
-      ...data,
-    };
+export class FormRepository implements IEditableRepository<Form> {
+  private readonly _stepRepository: StepRepository;
+
+  constructor(stepRepository?: StepRepository) {
+    this._stepRepository = stepRepository ?? new StepRepository();
   }
 
   async get(id: string) {
@@ -35,12 +36,13 @@ class FormRepository implements IEditableRepository<Form, DBForm> {
       throw new NotFoundError(`Form with id ${id} not found`);
     }
 
-    return this.toModel(data);
+    return new Form(data);
   }
 
   async getAll() {
     const data = await db.query.form.findMany();
-    return data.map(this.toModel);
+
+    return data.map(Form.from);
   }
 
   async create(input: InsertFormInput) {
@@ -52,7 +54,7 @@ class FormRepository implements IEditableRepository<Form, DBForm> {
       throw new Error('Failed to create form');
     }
 
-    return data;
+    return new Form(data);
   }
 
   async update(id: string, input: UpdateFormInput) {
@@ -69,8 +71,6 @@ class FormRepository implements IEditableRepository<Form, DBForm> {
       throw new Error('Failed to update form');
     }
 
-    return this.toModel(data);
+    return new Form(data);
   }
 }
-
-export default new FormRepository();

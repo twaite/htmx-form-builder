@@ -68,7 +68,7 @@ export default (app: ElysiaApp) =>
           );
         }
 
-        const form = await FormRepository.create(inputs.data);
+        const form = await new FormRepository().create(inputs.data);
 
         return new Response(null, {
           headers: {

@@ -12,7 +12,7 @@ export default (app: ElysiaApp) =>
   app
     .get('/', async ({ params: { id }, set }) => {
       try {
-        const form = await FormRepository.get(id);
+        const form = await new FormRepository().get(id);
 
         return (
           <Layout>
@@ -50,7 +50,7 @@ export default (app: ElysiaApp) =>
     .post(
       '/',
       async ({ params: { id }, body, set }) => {
-        await FormRepository.update(id, body);
+        await new FormRepository().update(id, body);
 
         set.headers = {
           'HX-Redirect': `/form/${id}/`,
