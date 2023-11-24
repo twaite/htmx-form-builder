@@ -1,11 +1,11 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
-import { t } from "elysia";
-import type { ElysiaApp } from "app";
-import { FormRepository, insertFormSchema } from "repo";
-import { first } from "lodash-es";
-import Input from "components/Input";
-import Button from "components/Button";
+import { t } from 'elysia';
+import type { ElysiaApp } from 'app';
+import { FormRepository, insertFormSchema } from 'repo';
+import { first } from 'lodash-es';
+import Input from 'components/Input';
+import Button from 'components/Button';
 
 type FormProps = {
   name?: string;
@@ -17,17 +17,17 @@ type FormProps = {
 function Form(props: FormProps) {
   return (
     <form
-      class="fixed w-screen h-screen flex top-0 left-0 items-center justify-center px-5"
+      class="fixed left-0 top-0 flex h-screen w-screen items-center justify-center px-5"
       hx-post="/form/create"
       hx-swap="outerHTML"
     >
       <div
-        class="w-full h-full absolute opacity-60 bg-slate-900 backdrop-blur-md"
+        class="absolute h-full w-full bg-slate-900 opacity-60 backdrop-blur-md"
         hx-get="/forms"
         hx-target="main"
         hx-swap="innerHTML"
       />
-      <div class="flex flex-col w-md mx-auto gap-1 z-10 bg-gray-50 dark:bg-slate-600 rounded-lg shadow-lg p-5 flex-grow max-w-md">
+      <div class="w-md z-10 mx-auto flex max-w-md flex-grow flex-col gap-1 rounded-lg bg-gray-50 p-5 shadow-lg dark:bg-slate-600">
         <Input
           label="Name"
           name="name"
@@ -51,9 +51,9 @@ function Form(props: FormProps) {
 
 export default (app: ElysiaApp) =>
   app
-    .get("/", () => <Form />)
+    .get('/', () => <Form />)
     .post(
-      "/",
+      '/',
       async ({ body }) => {
         const inputs = insertFormSchema.safeParse(body);
 
@@ -72,7 +72,7 @@ export default (app: ElysiaApp) =>
 
         return new Response(null, {
           headers: {
-            "HX-Redirect": `/form/${form.id}`,
+            'HX-Redirect': `/form/${form.id}`,
           },
         });
       },
@@ -81,5 +81,5 @@ export default (app: ElysiaApp) =>
           name: t.String(),
           description: t.String(),
         }),
-      }
+      },
     );

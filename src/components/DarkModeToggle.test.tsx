@@ -1,19 +1,19 @@
-import { describe, test, expect } from "bun:test";
-import userEvent from "@testing-library/user-event";
-import DarkModeToggle from "./DarkModeToggle";
+import { describe, test, expect } from 'bun:test';
+import userEvent from '@testing-library/user-event';
+import DarkModeToggle from './DarkModeToggle';
 
 const user = userEvent.setup();
 
-describe("DarkModeToggle", () => {
-  test("should match snapshot", () => {
+describe('DarkModeToggle', () => {
+  test('should match snapshot', () => {
     expect(<DarkModeToggle />).toMatchSnapshot();
   });
 
-  test("should toggle dark mode when pressed", async () => {
+  test('should toggle dark mode when pressed', async () => {
     document.body.innerHTML = <DarkModeToggle />;
-    const button = document.querySelector("div");
+    const button = document.querySelector('div');
 
     button.click();
-    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
   });
 });

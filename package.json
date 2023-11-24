@@ -28,7 +28,9 @@
     "@types/uuid": "^9.0.7",
     "bun-types": "latest",
     "drizzle-kit": "^0.20.4",
-    "jsdom": "^22.1.0"
+    "jsdom": "^22.1.0",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7"
   },
   "module": "src/index.js"
 }

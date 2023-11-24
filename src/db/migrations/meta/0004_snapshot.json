@@ -93,12 +93,8 @@
           "name": "form_steps_form_id_forms_id_fk",
           "tableFrom": "form_steps",
           "tableTo": "forms",
-          "columnsFrom": [
-            "form_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["form_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -108,10 +104,7 @@
         "form_steps_form_id_step_unique": {
           "name": "form_steps_form_id_step_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "form_id",
-            "step"
-          ]
+          "columns": ["form_id", "step"]
         }
       }
     },
@@ -172,12 +165,8 @@
           "name": "inputs_form_step_id_form_steps_id_fk",
           "tableFrom": "inputs",
           "tableTo": "form_steps",
-          "columnsFrom": [
-            "form_step_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["form_step_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

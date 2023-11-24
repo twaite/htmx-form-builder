@@ -1,11 +1,11 @@
-import { Form } from "app/models";
-import db, { form as formTable } from "db";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
-import { IEditableRepository } from "./types";
-import { eq } from "drizzle-orm";
-import { NotFoundError } from "elysia";
-import { first } from "lodash-es";
+import { Form } from 'app/models';
+import db, { form as formTable } from 'db';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { z } from 'zod';
+import { IEditableRepository } from './types';
+import { eq } from 'drizzle-orm';
+import { NotFoundError } from 'elysia';
+import { first } from 'lodash-es';
 
 export const insertFormSchema = createInsertSchema(formTable, {
   id: z.string().uuid().optional(),
@@ -49,7 +49,7 @@ class FormRepository implements IEditableRepository<Form, DBForm> {
     const data = first(results);
 
     if (!data) {
-      throw new Error("Failed to create form");
+      throw new Error('Failed to create form');
     }
 
     return data;
@@ -66,7 +66,7 @@ class FormRepository implements IEditableRepository<Form, DBForm> {
     const data = first(results);
 
     if (!data) {
-      throw new Error("Failed to update form");
+      throw new Error('Failed to update form');
     }
 
     return this.toModel(data);

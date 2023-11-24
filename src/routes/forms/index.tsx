@@ -1,27 +1,27 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
-import type { ElysiaApp } from "app";
-import { FormRepository } from "repo";
+import type { ElysiaApp } from 'app';
+import { FormRepository } from 'repo';
 
 async function FormList() {
   const forms = await FormRepository.getAll();
 
   return (
     <Html.Fragment>
-      <h1 class="text-xl font-bold pb-3">Select a form to begin:</h1>
-      <div class="grid lg:grid-cols-3 gap-3 mb-5">
+      <h1 class="pb-3 text-xl font-bold">Select a form to begin:</h1>
+      <div class="mb-5 grid gap-3 lg:grid-cols-3">
         {forms.map((form) => (
           <a
-            class="flex flex-col bg-gray-50 dark:bg-slate-500 shadow-lg p-3 rounded w-full items-center justify-center h-20 cursor-pointer hover:shadow-lg dark:hover:bg-slate-400 hover:bg-blue-100"
+            class="flex h-20 w-full cursor-pointer flex-col items-center justify-center rounded bg-gray-50 p-3 shadow-lg hover:bg-blue-100 hover:shadow-lg dark:bg-slate-500 dark:hover:bg-slate-400"
             href={`/form/${form.id}`}
           >
             <h2 class="text-lg font-bold">{form.name}</h2>
             <p>{form.description}</p>
           </a>
         ))}
-        <div class="w-full flex items-center justify-center">
+        <div class="flex w-full items-center justify-center">
           <button
-            class="rounded-full w-16 shadow-lg p-4 flex items-center justify-center bg-indigo-500 hover:shadow-xl hover:bg-indigo-600 cursor-pointer dark:bg-emerald-500"
+            class="flex w-16 cursor-pointer items-center justify-center rounded-full bg-indigo-500 p-4 shadow-lg hover:bg-indigo-600 hover:shadow-xl dark:bg-emerald-500"
             hx-get="/form/create"
             hx-target="#modal-container"
             hx-swap="innerHTML"
@@ -42,4 +42,4 @@ async function FormList() {
   );
 }
 
-export default (app: ElysiaApp) => app.get("/", () => <FormList />);
+export default (app: ElysiaApp) => app.get('/', () => <FormList />);

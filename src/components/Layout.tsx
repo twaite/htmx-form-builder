@@ -1,13 +1,13 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
-import Header from "./Header";
+import Header from './Header';
 
 export default function Layout(
-  props: Html.PropsWithChildren<{ title?: string }>
+  props: Html.PropsWithChildren<{ title?: string }>,
 ) {
   return (
     <>
-      {"<!doctype html>"}
+      {'<!doctype html>'}
       <html lang="en">
         <head>
           <title>{props.title}</title>
@@ -24,7 +24,7 @@ export default function Layout(
             content="width=device-width, initial-scale=1"
           ></meta>
         </head>
-        <body class="dark:bg-slate-700 dark:text-emerald-50 bg-gray-50">
+        <body class="bg-gray-50 dark:bg-slate-700 dark:text-emerald-50">
           <Header />
           <main class="p-5">{props.children}</main>
         </body>

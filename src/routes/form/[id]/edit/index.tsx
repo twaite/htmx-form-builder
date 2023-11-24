@@ -1,12 +1,12 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
-import type { ElysiaApp } from "app";
-import { FormRepository } from "app/repo";
-import Button from "components/Button";
-import Input from "components/Input";
+import type { ElysiaApp } from 'app';
+import { FormRepository } from 'app/repo';
+import Button from 'components/Button';
+import Input from 'components/Input';
 
 export default (app: ElysiaApp) =>
-  app.get("/", async ({ params: { id }, set }) => {
+  app.get('/', async ({ params: { id }, set }) => {
     const form = await FormRepository.get(id);
     return (
       <Html.Fragment>

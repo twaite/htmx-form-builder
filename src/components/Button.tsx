@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import { Html } from "@elysiajs/html";
+import clsx from 'clsx';
+import { Html } from '@elysiajs/html';
 
 type Props = {
   class?: string;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary";
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary';
 };
 
 export default function Button(props: Html.PropsWithChildren<Props>) {
@@ -14,14 +14,14 @@ export default function Button(props: Html.PropsWithChildren<Props>) {
       // Forward other props so htmx works
       {...props}
       class={clsx(
-        "rounded py-2 px-3",
+        'rounded px-3 py-2',
         {
-          "text-white bg-indigo-600 dark:bg-emerald-500 ":
-            !props.variant || props.variant === "primary",
-          "bg-gray-300 dark:bg-emerald-300 dark:text-slate-800":
-            props.variant === "secondary",
+          'bg-indigo-600 text-white dark:bg-emerald-500 ':
+            !props.variant || props.variant === 'primary',
+          'bg-gray-300 dark:bg-emerald-300 dark:text-slate-800':
+            props.variant === 'secondary',
         },
-        props.class
+        props.class,
       )}
       type={props.type}
     >
