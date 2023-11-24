@@ -1,13 +1,13 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
 import type { ElysiaApp } from "app";
-import { formRepo } from "app/repo";
+import { FormRepository } from "app/repo";
 import Button from "components/Button";
 import Input from "components/Input";
 
 export default (app: ElysiaApp) =>
   app.get("/", async ({ params: { id }, set }) => {
-    const form = await formRepo.findByIdThrows(id);
+    const form = await FormRepository.get(id);
     return (
       <Html.Fragment>
         <div class="flex gap-2">

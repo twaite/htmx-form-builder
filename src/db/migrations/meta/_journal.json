@@ -29,6 +29,13 @@
       "when": 1700695203406,
       "tag": "0003_high_vindicator",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1700791813551,
+      "tag": "0004_round_galactus",
+      "breakpoints": true
     }
   ]
 }

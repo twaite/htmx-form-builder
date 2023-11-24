@@ -1,13 +1,10 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
-import { z } from "zod";
-import { clsx } from "clsx";
-
 import type { ElysiaApp } from "app";
-import { formRepo } from "repo";
+import { FormRepository } from "repo";
 
 async function FormList() {
-  const forms = await formRepo.findMany();
+  const forms = await FormRepository.getAll();
 
   return (
     <Html.Fragment>

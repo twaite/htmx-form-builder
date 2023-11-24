@@ -1,1 +1,2 @@
-export * as formRepo from "./form";
+export * from "./FormRepository";
+export { default as FormRepository } from "./FormRepository";

@@ -6,13 +6,13 @@ import Button from "components/Button";
 import FormPreview from "components/FormPreview";
 import Layout from "components/Layout";
 import { t } from "elysia";
-import { formRepo } from "repo";
+import { FormRepository } from "repo";
 
 export default (app: ElysiaApp) =>
   app
     .get("/", async ({ params: { id }, set }) => {
       try {
-        const form = await formRepo.findByIdThrows(id);
+        const form = await FormRepository.get(id);
 
         return (
           <Layout>
@@ -31,7 +31,7 @@ export default (app: ElysiaApp) =>
                 </div>
                 <h3 class="text-lg">{form.description}</h3>
               </form>
-              <div class="rounded-lg bg-white p-4 dark:bg-slate-500">
+              <div>
                 <FormPreview form={form} />
               </div>
             </div>
@@ -50,7 +50,7 @@ export default (app: ElysiaApp) =>
     .post(
       "/",
       async ({ params: { id }, body, set }) => {
-        await formRepo.update(id, body);
+        await FormRepository.update(id, body);
 
         set.headers = {
           "HX-Redirect": `/form/${id}/`,
