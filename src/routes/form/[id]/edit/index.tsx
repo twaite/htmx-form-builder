@@ -6,7 +6,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 
 export default (app: ElysiaApp) =>
-  app.get('/', async ({ params: { id }, set }) => {
+  app.get('/', async ({ params: { id } }: { params: { id: string } }) => {
     const form = await FormRepository.get(id);
     return (
       <Html.Fragment>

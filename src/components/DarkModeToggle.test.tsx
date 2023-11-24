@@ -1,8 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import userEvent from '@testing-library/user-event';
 import DarkModeToggle from './DarkModeToggle';
-
-const user = userEvent.setup();
 
 describe('DarkModeToggle', () => {
   test('should match snapshot', () => {
