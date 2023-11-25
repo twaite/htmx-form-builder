@@ -2,6 +2,7 @@
 
 import type { ElysiaApp } from 'app';
 import { NotFoundError } from 'app/errors';
+import AddInputSidenav from 'components/AddInputSidenav';
 import Button from 'components/Button';
 import FormPreview from 'components/FormPreview';
 import Layout from 'components/Layout';
@@ -33,6 +34,9 @@ export default (app: ElysiaApp) =>
               <div>
                 <FormPreview form={form} />
               </div>
+            </div>
+            <div class="flex">
+              <AddInputSidenav />
             </div>
           </Layout>
         );

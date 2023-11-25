@@ -24,7 +24,7 @@ export default function Layout(
             content="width=device-width, initial-scale=1"
           ></meta>
         </head>
-        <body class="bg-gray-50 dark:bg-slate-700 dark:text-emerald-50">
+        <body class="bg-gray-100 dark:bg-slate-700 dark:text-emerald-50">
           <Header />
           <main class="p-5">{props.children}</main>
         </body>

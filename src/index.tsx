@@ -10,9 +10,13 @@ import { FormRepository, StepRepository } from 'app/repo';
 export const app = new Elysia()
   .use(html())
   .use(staticPlugin())
-  .decorate('repos', {
-    FormRepository: container.get(FormRepository),
-    StepRepository: container.get(StepRepository),
+  .derive(() => {
+    return {
+      repos: {
+        FormRepository: container.get(FormRepository),
+        StepRepository: container.get(StepRepository),
+      },
+    };
   })
   .use(
     autoroutes({
