@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "dev": "bun run --watch src/index.tsx",
+    "dev": "bun run --watch src/index.ts",
     "migrate": "bun src/db/migrate.ts",
     "migrate:make": "bun drizzle-kit generate:pg",
     "prepare": "husky install"

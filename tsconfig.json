@@ -16,7 +16,7 @@
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
     "paths": {
       "components/*": ["./src/components/*"],
-      "app": ["./src/index.tsx"],
+      "app": ["./index.ts"],
       "app/*": ["./src/*"],
       "db": ["./src/db/index.ts"],
       "repo": ["./src/repo/index.ts"]
