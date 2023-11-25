@@ -13,13 +13,15 @@ export class Entity {
   public readonly createdAt: Date;
   public readonly updatedAt: Date;
 
-  constructor(data: EntityCreateInput) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(data: EntityCreateInput, ..._: unknown[]) {
     this.id = data.id;
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
   }
 
-  static from(data: EntityCreateInput) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static from(data: EntityCreateInput, ..._: unknown[]) {
     return new this(data);
   }
 }

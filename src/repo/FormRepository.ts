@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import { NotFoundError } from 'app/errors';
 import { first } from 'lodash-es';
 import { StepRepository } from './StepRepository';
+import { injectable } from 'inversify';
 
 export const insertFormSchema = createInsertSchema(formTable, {
   id: z.string().uuid().optional(),
@@ -20,11 +21,12 @@ export type InsertFormInput = z.infer<typeof insertFormSchema>;
 export type UpdateFormInput = z.infer<typeof updateFormSchema>;
 export type DBForm = z.infer<typeof selectFormSchema>;
 
+@injectable()
 export class FormRepository implements IEditableRepository<Form> {
   private readonly _stepRepository: StepRepository;
 
-  constructor(stepRepository?: StepRepository) {
-    this._stepRepository = stepRepository ?? new StepRepository();
+  constructor(stepRepository: StepRepository) {
+    this._stepRepository = stepRepository;
   }
 
   async get(id: string) {
@@ -36,13 +38,13 @@ export class FormRepository implements IEditableRepository<Form> {
       throw new NotFoundError(`Form with id ${id} not found`);
     }
 
-    return new Form(data);
+    return new Form(data, this._stepRepository);
   }
 
   async getAll() {
     const data = await db.query.form.findMany();
 
-    return data.map(Form.from);
+    return data.map((d) => Form.from(d, this._stepRepository));
   }
 
   async create(input: InsertFormInput) {
@@ -54,7 +56,7 @@ export class FormRepository implements IEditableRepository<Form> {
       throw new Error('Failed to create form');
     }
 
-    return new Form(data);
+    return new Form(data, this._stepRepository);
   }
 
   async update(id: string, input: UpdateFormInput) {
@@ -71,6 +73,6 @@ export class FormRepository implements IEditableRepository<Form> {
       throw new Error('Failed to update form');
     }
 
-    return new Form(data);
+    return new Form(data, this._stepRepository);
   }
 }

@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { IReadableRepository } from './types';
 import { eq } from 'drizzle-orm';
 import { NotFoundError } from 'app/errors';
+import { injectable } from 'inversify';
 
 export const insertFormStepSchema = createInsertSchema(stepTable, {
   id: z.string().uuid().optional(),
@@ -18,6 +19,7 @@ export type InsertFormStepInput = z.infer<typeof insertFormStepSchema>;
 export type UpdateFormStepInput = z.infer<typeof updateFormStepSchema>;
 export type DBFormStep = z.infer<typeof selectFormStepSchema>;
 
+@injectable()
 export class StepRepository implements IReadableRepository<Step> {
   async get(id: string) {
     const data = await db.query.step.findFirst({

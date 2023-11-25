@@ -1,12 +1,19 @@
+import 'reflect-metadata';
 import { Elysia } from 'elysia';
 import { html } from '@elysiajs/html';
 import { tailwind } from 'elysia-tailwind'; // 1. Import
 import { autoroutes } from 'elysia-autoroutes';
 import { staticPlugin } from '@elysiajs/static';
+import { container } from 'app/di';
+import { FormRepository, StepRepository } from 'app/repo';
 
 export const app = new Elysia()
   .use(html())
   .use(staticPlugin())
+  .decorate('repos', {
+    FormRepository: container.get(FormRepository),
+    StepRepository: container.get(StepRepository),
+  })
   .use(
     autoroutes({
       routesDir: './routes',

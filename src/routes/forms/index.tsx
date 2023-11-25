@@ -1,11 +1,13 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
 import type { ElysiaApp } from 'app';
-import { FormRepository } from 'repo';
+import { Form } from 'app/models';
 
-async function FormList() {
-  const forms = await new FormRepository().getAll();
+type Props = {
+  forms: Form[];
+};
 
+async function FormList({ forms }: Props) {
   return (
     <Html.Fragment>
       <h1 class="pb-3 text-xl font-bold">Select a form to begin:</h1>
@@ -42,4 +44,9 @@ async function FormList() {
   );
 }
 
-export default (app: ElysiaApp) => app.get('/', () => <FormList />);
+export default (app: ElysiaApp) =>
+  app.get('/', async ({ repos }) => {
+    const forms = await repos.FormRepository.getAll();
+
+    return <FormList forms={forms} />;
+  });

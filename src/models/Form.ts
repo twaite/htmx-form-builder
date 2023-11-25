@@ -16,15 +16,19 @@ export class Form extends Entity {
 
   private _steps: Step[] | null = null;
 
-  constructor(data: FormCreateInput) {
+  private readonly _stepRepository: StepRepository;
+
+  constructor(data: FormCreateInput, stepRepository: StepRepository) {
     super(data);
+    this._stepRepository = stepRepository;
+
     const input = formCreateSchema.parse(data);
     this.name = input.name;
     this.description = input.description;
   }
 
-  static from(data: FormCreateInput) {
-    return new this(data);
+  static from(data: FormCreateInput, stepRepository: StepRepository) {
+    return new this(data, stepRepository);
   }
 
   async steps() {
@@ -32,6 +36,6 @@ export class Form extends Entity {
       return this._steps;
     }
 
-    return new StepRepository().getAllByFormId(this.id);
+    return this._stepRepository.getAllByFormId(this.id);
   }
 }
