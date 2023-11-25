@@ -1,4 +1,4 @@
-import { Form } from 'app/models';
+import { Form } from 'app/entities';
 import Button from 'components/Button';
 
 type Props = {

@@ -1,6 +1,7 @@
 export interface IReadableRepository<T> {
   get: (id: string) => Promise<T>;
   getAll: () => Promise<T[]>;
+  withTransaction(trx: unknown): IEditableRepository<T>;
 }
 
 export interface IEditableRepository<T> extends IReadableRepository<T> {

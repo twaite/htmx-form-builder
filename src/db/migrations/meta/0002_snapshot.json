@@ -1,6 +1,6 @@
 {
-  "id": "49966f16-889a-4da4-abf9-7da39c209057",
-  "prevId": "c9d60e44-3d5e-4a17-96ea-af1f389fc718",
+  "id": "bdcad3b6-3138-4706-8c9b-c3c10040f683",
+  "prevId": "d9055136-e70f-4855-97a2-9282e212aaf7",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -12,13 +12,35 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "name": {
           "name": "name",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'N/A'"
         }
       },
       "indexes": {},
@@ -34,7 +56,22 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "label": {
           "name": "label",
@@ -47,15 +84,124 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "input_type",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'text'"
+        },
+        "step_id": {
+          "name": "step_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "inputs_step_id_step_id_fk": {
+          "name": "inputs_step_id_step_id_fk",
+          "tableFrom": "inputs",
+          "tableTo": "step",
+          "columnsFrom": [
+            "step_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
+    },
+    "step": {
+      "name": "step",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "step": {
+          "name": "step",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "form_id": {
+          "name": "form_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "step_form_id_forms_id_fk": {
+          "name": "step_form_id_forms_id_fk",
+          "tableFrom": "step",
+          "tableTo": "forms",
+          "columnsFrom": [
+            "form_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "step_form_id_step_unique": {
+          "name": "step_form_id_step_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "form_id",
+            "step"
+          ]
+        }
+      }
     }
   },
-  "enums": {},
+  "enums": {
+    "input_type": {
+      "name": "input_type",
+      "values": {
+        "text": "text",
+        "number": "number",
+        "email": "email"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "schemas": {},

@@ -2,7 +2,7 @@
 
 import { t } from 'elysia';
 import type { ElysiaApp } from 'app';
-import { FormRepository, insertFormSchema } from 'repo';
+import { insertFormSchema } from 'repo';
 import { first } from 'lodash-es';
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -54,7 +54,7 @@ export default (app: ElysiaApp) =>
     .get('/', () => <Form />)
     .post(
       '/',
-      async ({ body }) => {
+      async ({ body, repos }) => {
         const inputs = insertFormSchema.safeParse(body);
 
         if (!inputs.success) {
@@ -68,7 +68,7 @@ export default (app: ElysiaApp) =>
           );
         }
 
-        const form = await new FormRepository().create(inputs.data);
+        const form = await repos.FormRepository.create(inputs.data);
 
         return new Response(null, {
           headers: {

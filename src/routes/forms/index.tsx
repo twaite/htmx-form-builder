@@ -1,7 +1,7 @@
 /// <reference types="@kitajs/html/hotwire-turbo.d.ts" />
 
 import type { ElysiaApp } from 'app';
-import { Form } from 'app/models';
+import { Form } from 'app/entities';
 
 type Props = {
   forms: Form[];

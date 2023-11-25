@@ -6,13 +6,12 @@ import Button from 'components/Button';
 import FormPreview from 'components/FormPreview';
 import Layout from 'components/Layout';
 import { t } from 'elysia';
-import { FormRepository } from 'repo';
 
 export default (app: ElysiaApp) =>
   app
-    .get('/', async ({ params: { id }, set }) => {
+    .get('/', async ({ params: { id }, set, repos }) => {
       try {
-        const form = await new FormRepository().get(id);
+        const form = await repos.FormRepository.get(id);
 
         return (
           <Layout>
@@ -38,6 +37,7 @@ export default (app: ElysiaApp) =>
           </Layout>
         );
       } catch (e) {
+        console.error(e);
         if (e instanceof NotFoundError) {
           set.status = 404;
           return '404 Not Found'; // TODO: error component
@@ -49,8 +49,8 @@ export default (app: ElysiaApp) =>
     })
     .post(
       '/',
-      async ({ params: { id }, body, set }) => {
-        await new FormRepository().update(id, body);
+      async ({ params: { id }, body, set, repos }) => {
+        await repos.FormRepository.update(id, body);
 
         set.headers = {
           'HX-Redirect': `/form/${id}/`,

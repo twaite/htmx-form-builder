@@ -17,45 +17,52 @@ const timestampsAndID = {
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 };
 
-export const input = pgTable('inputs', {
+export const inputs = pgTable('inputs', {
   ...timestampsAndID,
   label: varchar('label').notNull(),
   placeholder: varchar('placeholder').notNull(),
   type: inputType('type').notNull().default('text'),
-  formStepId: uuid('form_step_id')
+  stepId: uuid('step_id')
     .notNull()
-    .references(() => step.id),
+    .references(() => steps.id),
 });
 
-export const inputRelations = relations(input, ({ one }) => ({
-  formStep: one(step),
+export const inputsRelations = relations(inputs, ({ one }) => ({
+  step: one(steps, {
+    fields: [inputs.stepId],
+    references: [steps.id],
+  }),
 }));
 
-export const form = pgTable('forms', {
+export const forms = pgTable('forms', {
   ...timestampsAndID,
   name: varchar('name').notNull(),
   description: varchar('description').notNull().default('N/A'),
 });
 
-export const formRelations = relations(form, ({ many }) => ({
-  steps: many(step),
+export const formsRelations = relations(forms, ({ many }) => ({
+  steps: many(steps),
 }));
 
-export const step = pgTable(
+export const steps = pgTable(
   'step',
   {
     ...timestampsAndID,
+    name: varchar('name'),
     number: integer('step').notNull().default(1),
     formId: uuid('form_id')
       .notNull()
-      .references(() => form.id),
+      .references(() => forms.id),
   },
   (t) => ({
     formStepUnique: unique().on(t.formId, t.number),
   }),
 );
 
-export const formStepRelations = relations(step, ({ one, many }) => ({
-  form: one(form),
-  inputs: many(input),
+export const stepsRelations = relations(steps, ({ one, many }) => ({
+  form: one(forms, {
+    fields: [steps.formId],
+    references: [forms.id],
+  }),
+  inputs: many(inputs),
 }));
